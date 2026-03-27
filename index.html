@@ -3,173 +3,318 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="명품공인중개사사무소 - 서울 강동구 성안로 87. 매매·전세·월세·투자상담 전문" />
-  <title>명품공인중개사사무소 | 강동구 부동산 전문</title>
+  <meta name="description" content="명품공인중개사사무소 - 강동구 부동산 전문" />
+  <title>명품공인중개사사무소</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f5f4f0;
+      --bg2:      #eeecea;
+      --ink:      #111010;
+      --ink2:     #3a3836;
+      --ink3:     #888480;
+      --gold:     #c9a84c;
+      --gold-lt:  #e8c97a;
+      --pink:     #e8106a;
+      --line:     rgba(0,0,0,.1);
+      --serif: 'Noto Serif KR', Georgia, serif;
+      --sans:  'Noto Sans KR', sans-serif;
+      --r: 14px;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: var(--sans);
+      background: #e8e6e1;
+      color: var(--ink);
+    }
+
+    /* ── 배경 노이즈 텍스처 ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .wrap {
+      position: relative; z-index: 1;
+      max-width: 480px; margin: 40px auto;
+      padding: 48px 28px 52px;
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+
+      /* 명암 테두리 */
+      background: var(--bg);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.07),
+        0 2px 4px rgba(0,0,0,.04),
+        0 8px 24px rgba(0,0,0,.08),
+        0 24px 64px rgba(0,0,0,.13),
+        inset 0 1px 0 rgba(255,255,255,.95),
+        inset 0 -1px 0 rgba(0,0,0,.06);
+    }
+
+    /* ── 프로필 ── */
+    .profile { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 40px; }
+
+    .avatar {
+      width: 92px; height: 92px; border-radius: 50%;
+      background: linear-gradient(145deg, #1a1614, #2e2824);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      box-shadow:
+        0 0 0 3px rgba(201,168,76,.22),
+        0 0 0 6px rgba(201,168,76,.08),
+        0 8px 28px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .avatar svg {
+      width: 48px; height: 48px;
+      filter: drop-shadow(0 0 6px rgba(201,168,76,.5));
+    }
+    .avatar-ring {
+      position: absolute; inset: -4px; border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.3);
+    }
+
+    .profile-name {
+      font-family: var(--serif);
+      font-size: 1.18rem; font-weight: 900;
+      letter-spacing: -.03em; color: var(--ink);
+      text-align: center;
+    }
+    .profile-sub {
+      font-size: .73rem; color: var(--ink3);
+      letter-spacing: .04em; text-align: center; line-height: 1.7;
+    }
+    .profile-contact {
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center;
+      margin-top: 2px;
+    }
+    .contact-chip {
+      font-size: .72rem; font-weight: 600;
+      color: var(--ink2);
+      background: rgba(0,0,0,.06);
+      padding: 4px 12px; border-radius: 20px;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .contact-chip:hover { background: rgba(0,0,0,.12); }
+
+    /* ── 섹션 레이블 ── */
+    .section-label {
+      width: 100%;
+      font-size: .66rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ink3);
+      margin: 28px 0 10px;
+      padding-left: 2px;
+    }
+
+    /* ── 링크 카드 ── */
+    .link-list { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+
+    .link-card {
+      display: flex; align-items: center; gap: 16px;
+      width: 100%; padding: 16px 18px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      text-decoration: none; color: var(--ink);
+      transition: transform .18s cubic-bezier(.22,1,.36,1), box-shadow .18s, background .15s;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .link-card::after {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      border-radius: 4px 0 0 4px;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .link-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,.09);
+    }
+    .link-card:hover::after { opacity: 1; }
+    .link-card:active { transform: translateY(0); }
+
+    /* 색상 테마 */
+    .card-kakao::after    { background: #FEE500; }
+    .card-kakao:hover     { background: #fffdf0; }
+
+    .card-shop::after     { background: #00c9a7; }
+    .card-shop:hover      { background: #f0fffc; }
+
+    .card-building::after { background: var(--gold); }
+    .card-building:hover  { background: #fffbf0; }
+
+    .card-office::after   { background: #7b6cf6; }
+    .card-office:hover    { background: #f7f6ff; }
+
+    .card-icon {
+      width: 44px; height: 44px; border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .card-kakao    .card-icon { background: #FEE500; }
+    .card-shop     .card-icon { background: #e6fff9; }
+    .card-building .card-icon { background: #fdf5e0; }
+    .card-office   .card-icon { background: #efedff; }
+
+    .card-text { flex: 1; }
+    .card-title { font-size: .9rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; }
+    .card-desc  { font-size: .72rem; color: var(--ink3); margin-top: 2px; letter-spacing: .01em; }
+
+    .card-arrow {
+      font-size: .8rem; color: var(--ink3);
+      flex-shrink: 0;
+      transition: transform .2s, color .2s;
+    }
+    .link-card:hover .card-arrow { transform: translateX(3px); color: var(--ink2); }
+
+    /* ── 구분선 ── */
+    .divider {
+      width: 100%; height: 1px;
+      background: var(--line); margin: 32px 0 0;
+    }
+
+    /* ── 전화 CTA ── */
+    .cta-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 15px 20px; margin-top: 12px;
+      background: var(--ink);
+      color: #fff; border: none; border-radius: var(--r);
+      font-family: var(--sans); font-size: .88rem; font-weight: 700;
+      letter-spacing: .02em; cursor: pointer; text-decoration: none;
+      transition: background .2s, transform .15s;
+      box-shadow: 0 4px 20px rgba(0,0,0,.18);
+    }
+    .cta-btn:hover { background: #2a2826; transform: translateY(-2px); }
+    .cta-btn:active { transform: translateY(0); }
+    .cta-icon { font-size: 1rem; }
+
+    /* ── 푸터 ── */
+    .footer {
+      margin-top: 40px; width: 100%;
+      text-align: center;
+      font-size: .68rem; color: var(--ink3); line-height: 1.9;
+    }
+    .footer a { color: var(--ink3); text-decoration: none; }
+    .footer a:hover { color: var(--ink2); }
+
+    /* ── 애니메이션 ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .profile      { animation: fadeUp .5s ease both .05s; }
+    .section-label{ animation: fadeUp .45s ease both .15s; }
+    .link-list    { animation: fadeUp .45s ease both .2s; }
+    .divider      { animation: fadeUp .4s ease both .3s; }
+    .cta-btn      { animation: fadeUp .4s ease both .35s; }
+    .footer       { animation: fadeUp .4s ease both .4s; }
+
+    @media (max-width: 520px) {
+      .wrap { margin: 20px 16px; padding: 36px 20px 44px; border-radius: 20px; }
+    }
+  </style>
 </head>
 <body>
+<div class="wrap">
 
-  <div class="page-wrap">
-
-    <!-- ── MAIN ── -->
-    <main class="menu-section">
-
-      <!-- 브랜드 히어로 -->
-      <header class="hero">
-        <div class="hero-emblem">
-          <span class="emblem-gem">&#128273;</span>
-        </div>
-        <h1 class="hero-title">명품공인중개사사무소</h1>
-        <p class="hero-tagline">서울 강동구 성안로 87 · 강동역 3번 출구</p>
-        <a href="tel:05071390-5454" class="hero-phone">&#128222; 0507-1390-5454</a>
-      </header>
-
-      <!-- 메뉴 버튼 4개 -->
-      <div class="menu-grid">
-
-        <button class="menu-btn btn-inquiry" onclick="openModal('inquiry')">
-          <span class="btn-icon">&#128172;</span>
-          <span class="btn-label">문의하기</span>
-        </button>
-
-        <button class="menu-btn btn-kakao" onclick="openModal('kakao')">
-          <span class="btn-icon">&#128155;</span>
-          <span class="btn-label">카카오톡<br>문의하기</span>
-        </button>
-
-        <button class="menu-btn btn-listing" onclick="openModal('listing')">
-          <span class="btn-icon">&#127968;</span>
-          <span class="btn-label">매물접수<br>상담</span>
-        </button>
-
-        <button class="menu-btn btn-invest" onclick="openModal('invest')">
-          <span class="btn-icon">&#128200;</span>
-          <span class="btn-label">투자상담</span>
-        </button>
-
-      </div>
-
-      <!-- 전화 CTA -->
-      <button class="call-btn" onclick="window.location.href='tel:05071390-5454'">
-        <span class="call-icon">&#128222;</span>
-        <div class="call-text-wrap">
-          <span class="call-title">지금 바로 전화하기</span>
-          <span class="call-num">0507-1390-5454 · 영업 10:00~</span>
-        </div>
-        <span class="call-arrow">전화 연결 →</span>
-      </button>
-
-    </main>
-
-    <!-- ── FOOTER ── -->
-    <footer class="footer">
-      <span>서울 강동구 성안로 87 101호 · 중개업 등록</span>
-      <span class="footer-sep">|</span>
-      <span>&#128247; <a href="https://instagram.com/sunny_officee" target="_blank">@sunny_officee</a></span>
-      <span class="footer-sep">|</span>
-      <span>&copy; 2025 명품공인중개사사무소</span>
-    </footer>
-
-  </div>
-
-  <!-- ════════ MODALS ════════ -->
-  <div class="modal-backdrop" id="modalBackdrop" onclick="closeModal()"></div>
-
-  <!-- 문의하기 -->
-  <div class="modal" id="modal-inquiry">
-    <button class="modal-close" onclick="closeModal()">&#10005;</button>
-    <div class="modal-header">
-      <span class="modal-icon">&#128172;</span>
-      <h2>문의하기</h2>
-      <p>남겨주신 연락처로 담당자가 빠르게 연락드립니다</p>
+  <!-- 프로필 -->
+  <div class="profile">
+    <div class="avatar">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- 지붕 -->
+        <path d="M6 22L24 6L42 22" stroke="#e8c97a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- 집 몸통 -->
+        <rect x="10" y="22" width="28" height="20" rx="2" fill="none" stroke="#e8c97a" stroke-width="2.2" stroke-linejoin="round"/>
+        <!-- 문 -->
+        <rect x="19" y="31" width="10" height="11" rx="1.5" fill="#e8c97a" opacity=".35"/>
+        <rect x="19" y="31" width="10" height="11" rx="1.5" stroke="#e8c97a" stroke-width="1.8"/>
+        <!-- 굴뚝 -->
+        <rect x="30" y="12" width="5" height="10" rx="1" fill="none" stroke="#e8c97a" stroke-width="2" opacity=".7"/>
+        <!-- 문 손잡이 -->
+        <circle cx="27.5" cy="37" r="1" fill="#e8c97a"/>
+      </svg>
+      <div class="avatar-ring"></div>
     </div>
-    <form class="modal-form" onsubmit="handleSubmit(event,'modal-inquiry')">
-      <div class="form-row">
-        <div class="form-group"><label>이름 *</label><input type="text" placeholder="홍길동" required /></div>
-        <div class="form-group"><label>연락처 *</label><input type="tel" placeholder="010-0000-0000" required /></div>
-      </div>
-      <div class="form-group"><label>문의 내용</label><textarea rows="4" placeholder="궁금한 점을 자유롭게 적어주세요."></textarea></div>
-      <button type="submit" class="btn-submit">문의 접수하기 →</button>
-    </form>
-    <div class="form-success hidden"><span>&#9989;</span><p>접수 완료! 곧 연락드리겠습니다.</p></div>
-  </div>
-
-  <!-- 카카오 -->
-  <div class="modal" id="modal-kakao">
-    <button class="modal-close" onclick="closeModal()">&#10005;</button>
-    <div class="modal-header">
-      <span class="modal-icon">&#128155;</span>
-      <h2>카카오톡 문의</h2>
-      <p>카카오 채널에서 실시간 상담하세요</p>
-    </div>
-    <div class="kakao-body">
-      <div class="kakao-card">
-        <div class="qr-placeholder">
-          <span style="font-size:2.4rem;">&#128241;</span>
-          <p>카카오 채널 QR</p>
-          <small>실제 QR 이미지로 교체</small>
-        </div>
-        <p class="kakao-id">채널명: <strong>명품공인중개사사무소</strong></p>
-      </div>
-      <a href="https://pf.kakao.com/_YOUR_CHANNEL" target="_blank" class="btn-kakao-link">&#128172; 카카오 채널 바로가기</a>
-      <p class="kakao-note">링크를 실제 카카오 채널로 교체해주세요</p>
+    <p class="profile-name">명품공인중개사사무소</p>
+    <p class="profile-sub">서울 강동구 성안로 87 · 강동역 3번 출구<br>매매 · 전세 · 월세 · 투자상담 전문</p>
+    <div class="profile-contact">
+      <a href="tel:05071390-5454" class="contact-chip">📞 0507-1390-5454</a>
     </div>
   </div>
 
-  <!-- 매물 접수 -->
-  <div class="modal" id="modal-listing">
-    <button class="modal-close" onclick="closeModal()">&#10005;</button>
-    <div class="modal-header">
-      <span class="modal-icon">&#127968;</span>
-      <h2>매물 접수 상담</h2>
-      <p>내놓으실 매물 정보를 남겨주세요 · 안심 권리분석 무료 제공</p>
-    </div>
-    <form class="modal-form" onsubmit="handleSubmit(event,'modal-listing')">
-      <div class="form-row">
-        <div class="form-group"><label>이름 *</label><input type="text" placeholder="홍길동" required /></div>
-        <div class="form-group"><label>연락처 *</label><input type="tel" placeholder="010-0000-0000" required /></div>
+  <!-- 링크 목록 -->
+  <p class="section-label">바로가기</p>
+
+  <div class="link-list">
+
+    <!-- 카카오톡 문의 -->
+    <a class="link-card card-kakao" href="http://qr.kakao.com/talk/2gNPU95QlS707fAqSmx3a5x2Hps-" target="_blank" rel="noopener">
+      <div class="card-icon">💬</div>
+      <div class="card-text">
+        <p class="card-title">카카오톡 문의하기</p>
+        <p class="card-desc">채팅으로 편하게 문의하세요</p>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>매물 주소</label><input type="text" placeholder="예: 강동구 성안로 ○○아파트" /></div>
-        <div class="form-group"><label>거래 유형</label>
-          <select><option value="">선택</option><option>매매</option><option>전세</option><option>월세</option></select>
-        </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <!-- 강동구 상가 -->
+    <a class="link-card card-shop" href="https://www.instagram.com/mp_officee?igsh=bWFmejJ0MzI5OWo2" target="_blank" rel="noopener">
+      <div class="card-icon">🏪</div>
+      <div class="card-text">
+        <p class="card-title">강동구 상가 임대</p>
+        <p class="card-desc">맛집 · 카페 매물 전문</p>
       </div>
-      <div class="form-group"><label>추가 내용</label><textarea rows="3" placeholder="평수, 희망 가격, 특이사항 등"></textarea></div>
-      <button type="submit" class="btn-submit">접수 신청하기 →</button>
-    </form>
-    <div class="form-success hidden"><span>&#9989;</span><p>접수 완료! 곧 연락드리겠습니다.</p></div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <!-- 꼬마빌딩 -->
+    <a class="link-card card-building" href="https://www.instagram.com/mp_building_?igsh=ZTNoN2plbm85YWl1" target="_blank" rel="noopener">
+      <div class="card-icon">🏢</div>
+      <div class="card-text">
+        <p class="card-title">강동구 꼬마빌딩 매매 전문</p>
+        <p class="card-desc">수익형 꼬마빌딩 매물 안내</p>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <!-- 사무실 -->
+    <a class="link-card card-office" href="https://www.instagram.com/sunny_officee?igsh=MWFlZjRlbzZ6YjZsZA==" target="_blank" rel="noopener">
+      <div class="card-icon">🖥️</div>
+      <div class="card-text">
+        <p class="card-title">강동구 사무실</p>
+        <p class="card-desc">사무실 임대차 매물 안내</p>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
   </div>
 
-  <!-- 투자 상담 -->
-  <div class="modal" id="modal-invest">
-    <button class="modal-close" onclick="closeModal()">&#10005;</button>
-    <div class="modal-header">
-      <span class="modal-icon">&#128200;</span>
-      <h2>투자 상담</h2>
-      <p>수익형 부동산 투자 전략을 전문가와 설계하세요</p>
-    </div>
-    <form class="modal-form" onsubmit="handleSubmit(event,'modal-invest')">
-      <div class="form-row">
-        <div class="form-group"><label>이름 *</label><input type="text" placeholder="홍길동" required /></div>
-        <div class="form-group"><label>연락처 *</label><input type="tel" placeholder="010-0000-0000" required /></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>투자 예산</label>
-          <select><option value="">선택</option><option>1억 미만</option><option>1억~3억</option><option>3억~5억</option><option>5억~10억</option><option>10억 이상</option></select>
-        </div>
-        <div class="form-group"><label>관심 유형</label>
-          <select><option value="">선택</option><option>아파트</option><option>오피스텔</option><option>상가</option><option>토지</option><option>기타</option></select>
-        </div>
-      </div>
-      <div class="form-group"><label>상담 희망 내용</label><textarea rows="3" placeholder="투자 목표, 관심 지역, 시기 등"></textarea></div>
-      <button type="submit" class="btn-submit">상담 신청하기 →</button>
-    </form>
-    <div class="form-success hidden"><span>&#9989;</span><p>접수 완료! 곧 연락드리겠습니다.</p></div>
+  <!-- 전화 CTA -->
+  <div class="divider"></div>
+  <a class="cta-btn" href="tel:05071390-5454">
+    <span class="cta-icon">📞</span>
+    지금 바로 전화하기 · 0507-1390-5454
+  </a>
+
+  <!-- 푸터 -->
+  <div class="footer">
+    서울 강동구 성안로 87 101호 · 중개업 등록<br>
+    <a href="https://instagram.com/sunny_officee" target="_blank">@sunny_officee</a>
+    &nbsp;·&nbsp; © 2025 명품공인중개사사무소
   </div>
 
-  <script src="main.js"></script>
+</div>
 </body>
 </html>
