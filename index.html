@@ -216,6 +216,89 @@
     .map-btn:active { transform: translateY(0); }
     .map-icon { font-size: 1rem; }
 
+    /* ── 매물 문의 모달 ── */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(0,0,0,.45); backdrop-filter: blur(6px);
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .modal-backdrop.active { opacity: 1; pointer-events: all; }
+
+    .inquiry-modal {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%) translateY(100%);
+      z-index: 200; width: min(420px, 100vw);
+      background: var(--bg); border-radius: 20px 20px 0 0;
+      border-top: 1px solid rgba(255,255,255,.9);
+      box-shadow: 0 -8px 40px rgba(0,0,0,.18);
+      padding: 20px 20px 32px;
+      transition: transform .35s cubic-bezier(.22,1,.36,1);
+    }
+    .inquiry-modal.active { transform: translateX(-50%) translateY(0); }
+
+    .modal-handle {
+      width: 36px; height: 4px; border-radius: 2px;
+      background: rgba(0,0,0,.15); margin: 0 auto 16px;
+    }
+    .modal-title {
+      font-family: var(--serif); font-size: 1rem; font-weight: 900;
+      letter-spacing: -.02em; margin-bottom: 4px; text-align: left;
+    }
+    .modal-sub {
+      font-size: .7rem; color: var(--ink3); text-align: left; margin-bottom: 16px;
+    }
+
+    .form-group { margin-bottom: 10px; }
+    .form-group label {
+      display: block; font-size: .66rem; font-weight: 700;
+      color: var(--ink3); letter-spacing: .08em; text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%; padding: 9px 12px;
+      border: 1.5px solid rgba(0,0,0,.1); border-radius: 10px;
+      font-family: var(--sans); font-size: .84rem; color: var(--ink);
+      background: #fff; outline: none;
+      transition: border-color .2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--gold); }
+    .form-group textarea { resize: none; height: 72px; }
+
+    .send-btns {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px;
+    }
+    .btn-kakao-send {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 11px 8px; border-radius: 10px; border: none; cursor: pointer;
+      background: #FEE500; color: #3C1E1E;
+      font-family: var(--sans); font-size: .8rem; font-weight: 700;
+      transition: opacity .2s, transform .15s;
+    }
+    .btn-kakao-send:hover { opacity: .88; transform: translateY(-1px); }
+
+    .btn-email-send {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 11px 8px; border-radius: 10px; border: 1.5px solid rgba(0,0,0,.1); cursor: pointer;
+      background: #fff; color: var(--ink2);
+      font-family: var(--sans); font-size: .8rem; font-weight: 700;
+      transition: background .2s, transform .15s;
+    }
+    .btn-email-send:hover { background: #f5f4f0; transform: translateY(-1px); }
+
+    .modal-close-btn {
+      display: block; width: 100%; margin-top: 10px; padding: 8px;
+      background: none; border: none; cursor: pointer;
+      font-size: .72rem; color: var(--ink3); font-family: var(--sans);
+    }
+
+    /* 매물 카드 색상 */
+    .card-listing::after  { background: #f97316; }
+    .card-listing:hover   { background: #fff8f4; }
+    .card-listing .card-icon { background: #ffeee4; }
+
     /* ── 푸터 ── */
     .footer {
       margin-top: 14px; width: 100%;
@@ -224,8 +307,6 @@
     }
     .footer a { color: var(--ink3); text-decoration: none; }
     .footer a:hover { color: var(--ink2); }
-
-    /* ── 애니메이션 ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -267,7 +348,7 @@
     <p class="profile-name">명품공인중개사사무소</p>
     <p class="profile-sub">서울 강동구 성안로 87 · 강동역 3번 출구<br>매매 · 전세 · 월세 · 투자상담 전문</p>
     <div class="profile-contact">
-      <a href="tel:05071390-5454" class="contact-chip">📞 0507-1390-5454</a>
+      <a href="tel:02-470-5454" class="contact-chip">📞 02-470-5454</a>
     </div>
   </div>
 
@@ -316,13 +397,23 @@
       <span class="card-arrow">→</span>
     </a>
 
+    <!-- 매물 찾기/내놓기 상담 -->
+    <button class="link-card card-listing" onclick="openInquiry()">
+      <div class="card-icon">📋</div>
+      <div class="card-text">
+        <p class="card-title">매물 찾기 · 내놓기 상담 문의</p>
+        <p class="card-desc">원하시는 조건을 알려주세요</p>
+      </div>
+      <span class="card-arrow">→</span>
+    </button>
+
   </div>
 
   <!-- 전화 CTA -->
   <div class="divider"></div>
-  <a class="cta-btn" href="tel:05071390-5454">
+  <a class="cta-btn" href="tel:02-470-5454">
     <span class="cta-icon">📞</span>
-    지금 바로 전화하기 · 0507-1390-5454
+    지금 바로 전화하기 · 02-470-5454
   </a>
 
   <!-- 지도 버튼 -->
@@ -338,6 +429,57 @@
     &nbsp;·&nbsp; © 2025 명품공인중개사사무소
   </div>
 
-</div>
+  <!-- 매물 문의 모달 -->
+  <div class="modal-backdrop" id="backdrop" onclick="closeInquiry()"></div>
+  <div class="inquiry-modal" id="inquiryModal">
+    <div class="modal-handle"></div>
+    <p class="modal-title">매물 찾기 · 내놓기 상담</p>
+    <p class="modal-sub">내용 작성 후 카카오톡 또는 이메일로 보내주세요</p>
+
+    <div class="form-group">
+      <label>이름</label>
+      <input type="text" id="inq-name" placeholder="홍길동" />
+    </div>
+    <div class="form-group">
+      <label>연락처</label>
+      <input type="tel" id="inq-phone" placeholder="010-0000-0000" />
+    </div>
+    <div class="form-group">
+      <label>문의 내용</label>
+      <textarea id="inq-msg" placeholder="찾으시는 매물 조건, 예산, 지역 등을 자유롭게 적어주세요"></textarea>
+    </div>
+
+    <div class="send-btns">
+      <button class="btn-kakao-send" onclick="sendKakao()">💬 카카오톡으로</button>
+      <button class="btn-email-send" onclick="sendEmail()">✉️ 이메일로</button>
+    </div>
+    <button class="modal-close-btn" onclick="closeInquiry()">닫기</button>
+  </div>
+
+<script>
+  function openInquiry() {
+    document.getElementById('backdrop').classList.add('active');
+    document.getElementById('inquiryModal').classList.add('active');
+  }
+  function closeInquiry() {
+    document.getElementById('backdrop').classList.remove('active');
+    document.getElementById('inquiryModal').classList.remove('active');
+  }
+  function getMsg() {
+    const name  = document.getElementById('inq-name').value.trim();
+    const phone = document.getElementById('inq-phone').value.trim();
+    const msg   = document.getElementById('inq-msg').value.trim();
+    return `[매물 문의]\n이름: ${name || '(미입력)'}\n연락처: ${phone || '(미입력)'}\n내용: ${msg || '(미입력)'}`;
+  }
+  function sendKakao() {
+    const text = encodeURIComponent(getMsg());
+    window.open('http://qr.kakao.com/talk/2gNPU95QlS707fAqSmx3a5x2Hps-', '_blank');
+  }
+  function sendEmail() {
+    const subject = encodeURIComponent('[명품부동산] 매물 문의');
+    const body    = encodeURIComponent(getMsg());
+    window.location.href = `mailto:maroto6341@naver.com?subject=${subject}&body=${body}`;
+  }
+</script>
 </body>
 </html>
