@@ -28,17 +28,9 @@
     html, body {
       height: 100%; width: 100%;
       font-family: var(--sans);
-      background: #1a1e2e url("https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80") center center / cover no-repeat fixed;
+      background: #e8e6e1;
       color: var(--ink);
       display: flex; align-items: center; justify-content: center;
-    }
-
-    /* ── 어두운 오버레이 ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0;
-      background: linear-gradient(to bottom, rgba(5,10,20,.45) 0%, rgba(5,10,20,.7) 100%);
-      pointer-events: none;
     }
 
     .wrap {
@@ -47,18 +39,31 @@
       padding: 28px 24px 24px;
       display: flex; flex-direction: column; align-items: center; gap: 0;
 
-      /* 명암 테두리 */
-      background: var(--bg);
+      background: url('building1.png') center center / cover no-repeat;
       border-radius: 24px;
-      border: 1px solid rgba(255,255,255,.9);
+      border: 1px solid rgba(255,255,255,.25);
       box-shadow:
-        0 0 0 1px rgba(0,0,0,.07),
-        0 2px 4px rgba(0,0,0,.04),
-        0 8px 24px rgba(0,0,0,.08),
-        0 24px 64px rgba(0,0,0,.13),
-        inset 0 1px 0 rgba(255,255,255,.95),
-        inset 0 -1px 0 rgba(0,0,0,.06);
+        0 0 0 1px rgba(0,0,0,.15),
+        0 8px 32px rgba(0,0,0,.25),
+        0 24px 64px rgba(0,0,0,.35);
+      overflow: hidden;
     }
+
+    /* 이미지 위 어두운 오버레이 */
+    .wrap::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 15, 35, 0.62) 0%,
+        rgba(5, 15, 35, 0.55) 50%,
+        rgba(5, 15, 35, 0.68) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* 카드 내 모든 직계 자식을 오버레이 앞으로 */
+    .wrap > * { position: relative; z-index: 1; }
 
     /* ── 프로필 ── */
     .profile { display: flex; flex-direction: column; align-items: center; gap: 7px; margin-bottom: 16px; }
@@ -86,11 +91,11 @@
     .profile-name {
       font-family: var(--serif);
       font-size: 1.05rem; font-weight: 900;
-      letter-spacing: -.03em; color: var(--ink);
+      letter-spacing: -.03em; color: #fff;
       text-align: center;
     }
     .profile-sub {
-      font-size: .68rem; color: var(--ink3);
+      font-size: .68rem; color: rgba(255,255,255,.72);
       letter-spacing: .03em; text-align: center; line-height: 1.6;
     }
     .profile-contact {
@@ -99,20 +104,20 @@
     }
     .contact-chip {
       font-size: .68rem; font-weight: 600;
-      color: var(--ink2);
-      background: rgba(0,0,0,.06);
+      color: #fff;
+      background: rgba(255,255,255,.15);
       padding: 3px 10px; border-radius: 20px;
       text-decoration: none;
       transition: background .2s;
     }
-    .contact-chip:hover { background: rgba(0,0,0,.12); }
+    .contact-chip:hover { background: rgba(255,255,255,.25); }
 
     /* ── 섹션 레이블 ── */
     .section-label {
       width: 100%;
       font-size: .63rem; font-weight: 700;
       letter-spacing: .12em; text-transform: uppercase;
-      color: var(--ink3);
+      color: rgba(255,255,255,.6);
       margin: 12px 0 7px;
       padding-left: 2px;
     }
@@ -183,7 +188,7 @@
     /* ── 구분선 ── */
     .divider {
       width: 100%; height: 1px;
-      background: var(--line); margin: 14px 0 0;
+      background: rgba(255,255,255,.18); margin: 14px 0 0;
     }
 
     /* ── 전화 CTA ── */
@@ -311,10 +316,10 @@
     .footer {
       margin-top: 14px; width: 100%;
       text-align: center;
-      font-size: .64rem; color: var(--ink3); line-height: 1.8;
+      font-size: .64rem; color: rgba(255,255,255,.5); line-height: 1.8;
     }
-    .footer a { color: var(--ink3); text-decoration: none; }
-    .footer a:hover { color: var(--ink2); }
+    .footer a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer a:hover { color: rgba(255,255,255,.8); }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
