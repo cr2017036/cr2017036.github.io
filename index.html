@@ -28,27 +28,16 @@
     html, body {
       height: 100%; width: 100%;
       font-family: var(--sans);
-      background: #1a1e2e;
+      background: #1a1e2e url("https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80") center center / cover no-repeat fixed;
       color: var(--ink);
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* ── 빌딩 배경 ── */
-    body::after {
-      content: '';
-      position: fixed; inset: 0; z-index: -1;
-      background-image: url("https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=80");
-      background-size: cover;
-      background-position: center top;
-      opacity: .55;
-      pointer-events: none;
-    }
-
-    /* ── 배경 노이즈 텍스처 ── */
+    /* ── 어두운 오버레이 ── */
     body::before {
       content: '';
       position: fixed; inset: 0; z-index: 0;
-      background: linear-gradient(to bottom, rgba(10,14,28,.3) 0%, rgba(10,14,28,.6) 100%);
+      background: linear-gradient(to bottom, rgba(5,10,20,.45) 0%, rgba(5,10,20,.7) 100%);
       pointer-events: none;
     }
 
@@ -377,7 +366,7 @@
   <div class="link-list">
 
     <!-- 카카오톡 문의 -->
-    <a class="link-card card-kakao" href="http://qr.kakao.com/talk/2gNPU95QlS707fAqSmx3a5x2Hps-" target="_blank" rel="noopener">
+    <a class="link-card card-kakao" href="https://open.kakao.com/o/sd20Ljoi" target="_blank" rel="noopener">
       <div class="card-icon">💬</div>
       <div class="card-text">
         <p class="card-title">카카오톡 문의하기</p>
@@ -424,11 +413,11 @@
 
   <!-- 지도 버튼 -->
   <div class="map-btns">
-    <a class="map-btn map-btn-kakao" href="https://map.kakao.com/link/search/서울 강동구 성안로 87 101호" target="_blank" rel="noopener">
+    <a class="map-btn map-btn-kakao" href="https://map.kakao.com/link/search/서울 강동구 성안로 87 1층" target="_blank" rel="noopener">
       <span class="map-icon">📍</span>
       카카오맵
     </a>
-    <a class="map-btn map-btn-naver" href="https://map.naver.com/p/search/서울 강동구 성안로 87 101호" target="_blank" rel="noopener">
+    <a class="map-btn map-btn-naver" href="https://map.naver.com/p/search/서울 강동구 성안로 87 1층" target="_blank" rel="noopener">
       <span class="map-icon">📍</span>
       네이버지도
     </a>
@@ -436,7 +425,7 @@
 
   <!-- 푸터 -->
   <div class="footer">
-    서울 강동구 성안로 87 101호 · 중개업 등록<br>
+    서울 강동구 성안로 87 1층 · 중개업 등록<br>
     <a href="https://instagram.com/sunny_officee" target="_blank">@sunny_officee</a>
     &nbsp;·&nbsp; © 2025 명품공인중개사사무소
   </div>
