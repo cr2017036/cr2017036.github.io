@@ -28,16 +28,27 @@
     html, body {
       height: 100%; width: 100%;
       font-family: var(--sans);
-      background: #e8e6e1;
+      background: #1a1e2e;
       color: var(--ink);
       display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── 빌딩 배경 ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: -1;
+      background-image: url("https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=80");
+      background-size: cover;
+      background-position: center top;
+      opacity: .55;
+      pointer-events: none;
     }
 
     /* ── 배경 노이즈 텍스처 ── */
     body::before {
       content: '';
       position: fixed; inset: 0; z-index: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background: linear-gradient(to bottom, rgba(10,14,28,.3) 0%, rgba(10,14,28,.6) 100%);
       pointer-events: none;
     }
 
@@ -202,19 +213,27 @@
     .cta-icon { font-size: .95rem; }
 
     /* ── 지도 버튼 ── */
+    .map-btns {
+      display: flex; gap: 7px; width: 100%; margin-top: 7px;
+    }
     .map-btn {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; padding: 11px 20px; margin-top: 7px;
-      background: #e8e3d8;
-      color: var(--ink2); border: 1px solid rgba(0,0,0,.08); border-radius: var(--r);
-      font-family: var(--sans); font-size: .82rem; font-weight: 600;
+      flex: 1;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 11px 10px;
+      border-radius: var(--r);
+      font-family: var(--sans); font-size: .8rem; font-weight: 600;
       letter-spacing: .01em; cursor: pointer; text-decoration: none;
       transition: background .2s, transform .15s;
       box-shadow: 0 2px 8px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.6);
     }
-    .map-btn:hover { background: #dfd9cd; transform: translateY(-1px); }
     .map-btn:active { transform: translateY(0); }
     .map-icon { font-size: 1rem; }
+
+    .map-btn-kakao, .map-btn-naver {
+      background: #e8e3d8; color: var(--ink2);
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .map-btn-kakao:hover, .map-btn-naver:hover { background: #dfd9cd; transform: translateY(-1px); }
 
     /* ── 매물 문의 모달 ── */
     .modal-backdrop {
@@ -316,7 +335,7 @@
     .link-list    { animation: fadeUp .45s ease both .2s; }
     .divider      { animation: fadeUp .4s ease both .3s; }
     .cta-btn      { animation: fadeUp .4s ease both .35s; }
-    .map-btn      { animation: fadeUp .4s ease both .38s; }
+    .map-btns     { animation: fadeUp .4s ease both .38s; }
     .footer       { animation: fadeUp .4s ease both .42s; }
 
     @media (max-width: 520px) {
@@ -369,7 +388,6 @@
 
     <!-- 강동구 상가 -->
     <a class="link-card card-shop" href="https://www.instagram.com/mp_officee?igsh=bWFmejJ0MzI5OWo2" target="_blank" rel="noopener">
-      <div class="card-icon">🏪</div>
       <div class="card-text">
         <p class="card-title">강동구 상가 임대</p>
         <p class="card-desc">상가 임대차 매물 안내</p>
@@ -379,7 +397,6 @@
 
     <!-- 사무실 -->
     <a class="link-card card-office" href="https://www.instagram.com/sunny_officee?igsh=MWFlZjRlbzZ6YjZsZA==" target="_blank" rel="noopener">
-      <div class="card-icon">🖥️</div>
       <div class="card-text">
         <p class="card-title">강동구 사무실 임대</p>
         <p class="card-desc">사무실 임대차 매물 안내</p>
@@ -389,7 +406,6 @@
 
     <!-- 꼬마빌딩 -->
     <a class="link-card card-building" href="https://www.instagram.com/mp_building_?igsh=ZTNoN2plbm85YWl1" target="_blank" rel="noopener">
-      <div class="card-icon">🏢</div>
       <div class="card-text">
         <p class="card-title">강동구 꼬마빌딩 매매</p>
         <p class="card-desc">수익형 꼬마빌딩 매물 안내</p>
@@ -397,30 +413,26 @@
       <span class="card-arrow">→</span>
     </a>
 
-    <!-- 매물 찾기/내놓기 상담 -->
-    <button class="link-card card-listing" onclick="openInquiry()">
-      <div class="card-icon">📋</div>
-      <div class="card-text">
-        <p class="card-title">매물 찾기 · 내놓기 상담 문의</p>
-        <p class="card-desc">원하시는 조건을 알려주세요</p>
-      </div>
-      <span class="card-arrow">→</span>
-    </button>
-
   </div>
 
   <!-- 전화 CTA -->
   <div class="divider"></div>
   <a class="cta-btn" href="tel:02-470-5454">
     <span class="cta-icon">📞</span>
-    지금 바로 전화하기 · 02-470-5454
+    전화하기 · 02-470-5454
   </a>
 
   <!-- 지도 버튼 -->
-  <a class="map-btn" href="https://map.kakao.com/link/search/서울 강동구 성안로 87 101호" target="_blank" rel="noopener">
-    <span class="map-icon">📍</span>
-    부동산 찾아가기 · 강동구 성안로 87 101호
-  </a>
+  <div class="map-btns">
+    <a class="map-btn map-btn-kakao" href="https://map.kakao.com/link/search/서울 강동구 성안로 87 101호" target="_blank" rel="noopener">
+      <span class="map-icon">📍</span>
+      카카오맵
+    </a>
+    <a class="map-btn map-btn-naver" href="https://map.naver.com/p/search/서울 강동구 성안로 87 101호" target="_blank" rel="noopener">
+      <span class="map-icon">📍</span>
+      네이버지도
+    </a>
+  </div>
 
   <!-- 푸터 -->
   <div class="footer">
